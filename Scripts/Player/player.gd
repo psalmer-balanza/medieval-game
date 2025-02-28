@@ -1,17 +1,19 @@
-class_name Player extends CharacterBody2D
+class_name Player
+extends CharacterBody2D
 
-var move_speed : float = 100.0
-
+@onready var animation_player = $AnimationPlayer
+@onready var state_machine = $StateMachine
+@onready var movement_speed: float = 100.0
 func _ready() -> void:
-	pass
+	# Initialize the state machine, passing a reference of the player to the states,
+	# that way they can move and react accordingly
+	state_machine.init(self)
+
+func _unhandled_input(event: InputEvent) -> void:
+	state_machine.process_input(event)
+
+func _physics_process(delta: float) -> void:
+	state_machine.process_physics(delta)
+
 func _process(delta: float) -> void:
-	var direction : Vector2 = Vector2.ZERO
-	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
-	
-	velocity = direction * move_speed
-	
-	pass
-#called every physics tip 	
-func _physics_process(delta):
-	move_and_slide()
+	state_machine.process_frame(delta)

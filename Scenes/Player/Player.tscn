@@ -1,11 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://rejd05tu8pm0"]
+[gd_scene load_steps=10 format=3 uid="uid://rejd05tu8pm0"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_7sn1x"]
 [ext_resource type="Texture2D" uid="uid://38f8ah5aamie" path="res://Assets/Sprites/Player/ExamplePlayerSprite.png" id="1_gi4ta"]
+[ext_resource type="Script" path="res://Scripts/Player/state_machine.gd" id="3_kls2u"]
+[ext_resource type="Script" path="res://Scripts/Player/idle_state.gd" id="4_oe2af"]
+[ext_resource type="Script" path="res://Scripts/Player/moving_state.gd" id="5_h72qs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wid3d"]
 radius = 11.0
 height = 42.0
+
+[sub_resource type="Animation" id="Animation_wtooc"]
+resource_name = "walk_left"
+length = 0.75
+loop_mode = 2
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_avifb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blawp"]
+_data = {
+"RESET": SubResource("Animation_avifb"),
+"walk_left": SubResource("Animation_wtooc")
+}
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_7sn1x")
@@ -14,7 +56,25 @@ script = ExtResource("1_7sn1x")
 position = Vector2(240, 119)
 texture = ExtResource("1_gi4ta")
 hframes = 21
+frame = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(240, 119)
 shape = SubResource("CapsuleShape2D_wid3d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_blawp")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_kls2u")
+starting_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("4_oe2af")
+move_state = NodePath("../MovingState")
+
+[node name="MovingState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("5_h72qs")
+idle_state = NodePath("../IdleState")
