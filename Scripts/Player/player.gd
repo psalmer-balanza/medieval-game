@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var animation_player = $AnimationPlayer
 @onready var state_machine = $StateMachine
 @onready var movement_speed: float = 100.0
+
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly

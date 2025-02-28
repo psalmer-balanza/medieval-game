@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rejd05tu8pm0"]
+[gd_scene load_steps=12 format=3 uid="uid://rejd05tu8pm0"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_7sn1x"]
 [ext_resource type="Texture2D" uid="uid://38f8ah5aamie" path="res://Assets/Sprites/Player/ExamplePlayerSprite.png" id="1_gi4ta"]
@@ -10,7 +10,57 @@
 radius = 11.0
 height = 42.0
 
+[sub_resource type="Animation" id="Animation_avifb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_rv7gn"]
+resource_name = "idle"
+loop_mode = 2
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+
 [sub_resource type="Animation" id="Animation_wtooc"]
+resource_name = "walk_right"
+length = 0.75
+loop_mode = 2
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_av3ll"]
 resource_name = "walk_left"
 length = 0.75
 loop_mode = 2
@@ -28,25 +78,12 @@ tracks/0/keys = {
 "values": [17, 18, 19, 20]
 }
 
-[sub_resource type="Animation" id="Animation_avifb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [17]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_blawp"]
 _data = {
 "RESET": SubResource("Animation_avifb"),
-"walk_left": SubResource("Animation_wtooc")
+"idle": SubResource("Animation_rv7gn"),
+"walk_left": SubResource("Animation_av3ll"),
+"walk_right": SubResource("Animation_wtooc")
 }
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
