@@ -6,14 +6,16 @@ extends State
 @export var idle_state: State
 func enter() -> void:
 	super()
-	parent.velocity.x = 0
-	parent.velocity.y = 0
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed('jump') and parent.is_on_floor():
-		return jump_state
-	if not (Input.is_action_just_pressed('left') or Input.is_action_just_pressed('right')or Input.is_action_just_pressed('up') or Input.is_action_just_pressed('down')):
-		print("Leaving move state")
+	#if Input.is_action_just_pressed("jump") and parent.is_on_floor():
+		#return jump_state
+	
+	# Check if NO movement keys are being pressed
+	if not (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right") or 
+			Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down")):
+		print("Switching to Idle State")
+		return idle_state  # Transition to Idle if no movement input
 
 	return null
 
@@ -23,7 +25,12 @@ func process_physics(delta: float) -> State:
 		Input.get_axis("ui_left", "ui_right"),
 		Input.get_axis("ui_up", "ui_down")
 	).normalized()
-		# Handle animations based on direction
+
+	# If there is no movement, transition to Idle
+	if character_direction == Vector2.ZERO:
+		return idle_state
+
+	# Handle animations based on direction
 	if character_direction.x < 0 and character_direction.y == 0: 	#LEFT
 		parent.animation_player.play("walk_left")
 	elif character_direction.x > 0 and character_direction.y == 0: 	#RIGHT
