@@ -5,7 +5,16 @@ extends State
 func enter() -> void:
 	super()
 	parent.velocity = Vector2.ZERO  # Reset velocity when entering idle state
-	parent.animation_player.play("idle")  # Ensure idle animation plays
+	
+	### Play idle animation of the last known direction
+	if parent.last_direction.x < 0:
+		parent.animation_player.play("idle_left")
+	elif parent.last_direction.x > 0:
+		parent.animation_player.play("idle_right")
+	elif parent.last_direction.y < 0:
+		parent.animation_player.play("idle_up")
+	elif parent.last_direction.y > 0:
+		parent.animation_player.play("idle_down")
 
 func process_input(event: InputEvent) -> State:
 	return null

@@ -13,13 +13,16 @@ func process_physics(delta: float) -> State:
 		Input.get_axis("up", "down")
 	).normalized()
 
+	# **Store last movement direction before checking for idle**
+	if character_direction != Vector2.ZERO:
+		parent.last_direction = character_direction  # Store the direction BEFORE returning
+
 	# If there is no movement, transition to Idle
 	if character_direction == Vector2.ZERO:
 		return idle_state
 
 	# Handle animations based on direction
 	if character_direction.x < 0 and character_direction.y == 0: 	#LEFT
-		parent.get_node("Sprite2D").scale.x = -1
 		parent.animation_player.play("walk_left")
 	elif character_direction.x > 0 and character_direction.y == 0: 	#RIGHT
 		parent.animation_player.play("walk_right")
