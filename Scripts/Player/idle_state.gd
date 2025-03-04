@@ -1,6 +1,7 @@
 extends State
 
 @export var move_state: State
+@export var attack_state: State
 
 func enter() -> void:
 	super()
@@ -17,9 +18,12 @@ func enter() -> void:
 		parent.animation_player.play("idle_down")
 
 func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed("attack"):
+		return attack_state
 	return null
 
-func process_physics(delta: float) -> State:
+
+func process_frame(delta: float) -> State:
 	# If any movement key is held, transition to move_state
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right") or \
 	   Input.is_action_pressed("up") or Input.is_action_pressed("down"):

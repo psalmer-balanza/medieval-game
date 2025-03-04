@@ -2,11 +2,17 @@ extends State
 
 @export var move_state: State
 @export var idle_state: State
+@export var attack_state: State
 
 func enter() -> void:
 	super()
 
-func process_physics(delta: float) -> State:
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed("attack"):
+		return attack_state
+	return null
+
+func process_frame(delta: float) -> State:
 	# This is for direction, takes it from input
 	var character_direction = Vector2(
 		Input.get_axis("left", "right"),
