@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/idle_state.gd" id="4_oe2af"]
 [ext_resource type="Script" path="res://Scripts/Player/moving_state.gd" id="5_h72qs"]
 [ext_resource type="Script" path="res://Scripts/Player/attack_state.gd" id="6_mpakr"]
-[ext_resource type="AudioStream" uid="uid://caemd73l8x51n" path="res://Assets/Audio/Player/SwordSwingingSwoosh.wav" id="8_iaa5x"]
+[ext_resource type="AudioStream" uid="uid://b7vbpqty83ca5" path="res://Assets/Audio/Player/SwordSwoosh.wav" id="8_dy8r5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wid3d"]
 radius = 11.0
@@ -588,8 +588,7 @@ attack_state = NodePath("../AttackState")
 script = ExtResource("6_mpakr")
 move_state = NodePath("../IdleState")
 idle_state = NodePath("../MovingState")
-attack_sound = ExtResource("8_iaa5x")
-decelerate_speed = 3.0
+attack_sound = ExtResource("8_dy8r5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(241, 101)

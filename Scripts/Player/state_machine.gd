@@ -1,7 +1,10 @@
 #State Machine source code from:
 #https://shaggydev.com/2023/10/08/godot-4-state-machines/
+class_name StateMachine
 extends Node
-
+var states: Array [State]
+var prev_state: State
+ 
 @export var starting_state: State
 
 var current_state: State
@@ -17,12 +20,18 @@ func init(parent: Player) -> void:
 
 # Change to the new state by first calling any exit logic on the current state.
 func change_state(new_state: State) -> void:
+	if new_state == null || new_state == current_state:
+		return
 	if current_state:
 		current_state.exit()
 
 	current_state = new_state
 	current_state.enter()
-	
+func ChangeState(new_state: State) -> void:
+	if new_state == null || new_state == current_state:
+		return
+	if current_state:
+		current_state.Exit()
 # Pass through functions for the Player to call,
 # handling state changes as needed.
 func process_physics(delta: float) -> void:
