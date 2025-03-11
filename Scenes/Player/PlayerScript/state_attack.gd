@@ -36,10 +36,6 @@ func enter() -> void:
 	# Play attack animation
 	parent.animation_player.play(attack_anim)
 
-	# Ensure no duplicate signal connections
-	if parent.animation_player.animation_finished.is_connected(_on_attack_finished):
-		parent.animation_player.animation_finished.disconnect(_on_attack_finished)
-
 	# Connect with one-shot so it auto-disconnects
 	parent.animation_player.animation_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT)
 
@@ -59,18 +55,20 @@ func process_input(event: InputEvent) -> State:
 	return idle_state  # Default to idle if no input
 
 func process_frame(delta: float) -> State:
-	parent.velocity -= parent.velocity * decelerate_speed * delta  # Smooth stop
+	# Movement during attack
+	var move_dir = Vector2(
+		Input.get_axis("left", "right"),
+		Input.get_axis("up", "down")
+	).normalized()
 
+	parent.velocity = move_dir * parent.movement_speed * .5
+	parent.move_and_slide()
+
+	# Optional: check if attack finished to return to move/idle
 	if attack_done:
-		# Check if player is moving
-		var move_dir = Vector2(
-			Input.get_axis("left", "right"),
-			Input.get_axis("up", "down")
-		).normalized()
-
 		if move_dir != Vector2.ZERO:
-			return move_state  # Move if input
+			return move_state
 		else:
-			return idle_state  # Else idle
+			return idle_state
 
-	return self  # Continue attacking if not done
+	return self  # Stay in attack state while attacking

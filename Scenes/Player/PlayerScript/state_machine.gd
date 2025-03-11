@@ -2,7 +2,6 @@
 #https://shaggydev.com/2023/10/08/godot-4-state-machines/
 class_name StateMachine
 extends Node
-var states: Array [State]
 var prev_state: State
  
 @export var starting_state: State
@@ -13,7 +12,8 @@ var current_state: State
 # parent object it belongs to and enter the default starting_state.
 func init(parent: Player) -> void:
 	for child in get_children():
-		child.parent = parent
+		if child is State:
+			child.parent = parent
 
 	# Initialize to the default state
 	change_state(starting_state)
@@ -24,14 +24,10 @@ func change_state(new_state: State) -> void:
 		return
 	if current_state:
 		current_state.exit()
-
+	prev_state = current_state
 	current_state = new_state
 	current_state.enter()
-func ChangeState(new_state: State) -> void:
-	if new_state == null || new_state == current_state:
-		return
-	if current_state:
-		current_state.Exit()
+
 # Pass through functions for the Player to call,
 # handling state changes as needed.
 func process_physics(delta: float) -> void:

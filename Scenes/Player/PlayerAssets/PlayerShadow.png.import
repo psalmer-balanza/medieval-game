@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uiouijxtcsx1"
-path="res://.godot/imported/base_walk_strip8.png-0a26ed9112ac736de7b978341f5b02df.ctex"
+uid="uid://fxmotoajh0rd"
+path="res://.godot/imported/PlayerShadow.png-556c2e6466029e9a6ca3429abcbf2e7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Player/base_walk_strip8.png"
-dest_files=["res://.godot/imported/base_walk_strip8.png-0a26ed9112ac736de7b978341f5b02df.ctex"]
+source_file="res://Scenes/Player/PlayerAssets/PlayerShadow.png"
+dest_files=["res://.godot/imported/PlayerShadow.png-556c2e6466029e9a6ca3429abcbf2e7d.ctex"]
 
 [params]
 

@@ -1,12 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://bqfft4igxium4"]
+[gd_scene load_steps=25 format=3 uid="uid://bqfft4igxium4"]
 
-[ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_7sn1x"]
-[ext_resource type="Texture2D" uid="uid://bvi3oheu022pu" path="res://Assets/Sprites/Player/PlayerSprite02.png" id="2_wh46b"]
-[ext_resource type="Script" path="res://Scripts/Player/state_machine.gd" id="3_kls2u"]
-[ext_resource type="Texture2D" uid="uid://deojmgbvy2vpo" path="res://Assets/Sprites/Player/AttackSprite01.png" id="3_m5xpw"]
-[ext_resource type="Script" path="res://Scripts/Player/idle_state.gd" id="4_oe2af"]
-[ext_resource type="Script" path="res://Scripts/Player/moving_state.gd" id="5_h72qs"]
-[ext_resource type="Script" path="res://Scripts/Player/attack_state.gd" id="6_mpakr"]
+[ext_resource type="Script" path="res://Scenes/Player/PlayerScript/player.gd" id="1_7sn1x"]
+[ext_resource type="Texture2D" uid="uid://bvi3oheu022pu" path="res://Scenes/Player/PlayerAssets/PlayerSprite02.png" id="2_wh46b"]
+[ext_resource type="Script" path="res://Scenes/Player/PlayerScript/state_machine.gd" id="3_kls2u"]
+[ext_resource type="Texture2D" uid="uid://deojmgbvy2vpo" path="res://Scenes/Player/PlayerAssets/PlayerAttackSprite01.png" id="3_m5xpw"]
+[ext_resource type="Script" path="res://Scenes/Player/PlayerScript/state_idle.gd" id="4_oe2af"]
+[ext_resource type="Texture2D" uid="uid://fxmotoajh0rd" path="res://Scenes/Player/PlayerAssets/PlayerShadow.png" id="4_ttrg0"]
+[ext_resource type="Script" path="res://Scenes/Player/PlayerScript/state_moving.gd" id="5_h72qs"]
+[ext_resource type="Script" path="res://Scenes/Player/PlayerScript/state_attack.gd" id="6_mpakr"]
 [ext_resource type="AudioStream" uid="uid://caemd73l8x51n" path="res://Assets/Audio/Player/SwordSwingingSwoosh.wav" id="8_iaa5x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wid3d"]
@@ -561,6 +562,12 @@ show_behind_parent = true
 texture = ExtResource("3_m5xpw")
 hframes = 12
 
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(0, 0, 0, 0.552941)
+show_behind_parent = true
+position = Vector2(0, 19)
+texture = ExtResource("4_ttrg0")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(240, 119)
 shape = SubResource("CapsuleShape2D_wid3d")
@@ -592,7 +599,7 @@ attack_sound = ExtResource("8_iaa5x")
 decelerate_speed = 3.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(241, 101)
+position = Vector2(242, 126)
 
 [node name="Node2D" type="Node2D" parent="."]
 
