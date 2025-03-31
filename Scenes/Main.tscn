@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=4 uid="uid://cd63qbd0vrtpw"]
+[gd_scene load_steps=6 format=4 uid="uid://cd63qbd0vrtpw"]
 
 [ext_resource type="PackedScene" uid="uid://bbfnjlrqhqrv1" path="res://Scenes/Tilemaps/Grass.tscn" id="2_1vvca"]
 [ext_resource type="PackedScene" uid="uid://bktp1wbxyjrp2" path="res://Scenes/Tilemaps/Road.tscn" id="3_5uyki"]
 [ext_resource type="PackedScene" uid="uid://vc3yski6hho" path="res://Scenes/Tilemaps/Water.tscn" id="4_3xdwh"]
+[ext_resource type="PackedScene" uid="uid://dont2ionv0gt1" path="res://Scenes/Plants/Plant.tscn" id="5_1lsnu"]
 [ext_resource type="PackedScene" uid="uid://bqfft4igxium4" path="res://Scenes/Player/Player.tscn" id="5_gdxgi"]
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("5_gdxgi")]
 position = Vector2(-234, -127)
@@ -22,3 +24,9 @@ tile_map_data = PackedByteArray("AAD+/wcAAAABAAgAAAD//wcAAAAAAAUAAAD//wgAAAAAAAg
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.705333, 0.66, 1, 1)
+
+[node name="Plant" parent="." instance=ExtResource("5_1lsnu")]
+position = Vector2(102, -1)
+
+[node name="Plant2" parent="." instance=ExtResource("5_1lsnu")]
+position = Vector2(162, 46)
